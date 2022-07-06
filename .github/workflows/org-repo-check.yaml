@@ -14,11 +14,8 @@ jobs:
         with:
           repository: reposaur/policy
 
-      - name: Setup Reposaur
-        uses: reposaur/setup-reposaur@v0.1.0
-
       - name: Execute Policies
-        run: 'rsr exec > report.sarif'
+        uses: reposaur/repo-audit-action@main
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
