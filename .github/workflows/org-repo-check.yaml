@@ -5,6 +5,9 @@ on:
     - cron: '0 2 * * *'
   workflow_dispatch:
 
+permissions:
+  security-events: write
+
 jobs:
   reposaur_audit:
     runs-on: ubuntu-latest
@@ -15,12 +18,12 @@ jobs:
           repository: reposaur/policy
 
       - name: Execute Policies
-        uses: reposaur/repo-audit-action@main
+        uses: reposaur/repo-audit-action@v0.1.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Output reposaur results
-        run: cat report.sarif
+        run: ls && ls .reposaur
 
 #      - name: Upload Report
 #        uses: github/codeql-action/upload-sarif@v2
