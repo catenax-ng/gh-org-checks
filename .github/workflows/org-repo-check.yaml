@@ -15,7 +15,7 @@ jobs:
           repository: reposaur/policy
 
       - name: Setup Reposaur
-        uses: reposaur/setup-reposaur@main
+        uses: reposaur/setup-reposaur@v0.1.0
 
       - name: Execute Policies
         run: 'rsr exec > report.sarif'
