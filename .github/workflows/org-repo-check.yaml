@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Policy Library
-        uses: actions/checkout
+        uses: actions/checkout@v3
         with:
           repository: reposaur/policy
 
@@ -18,7 +18,7 @@ jobs:
         uses: reposaur/setup-reposaur@main
 
       - name: Execute Policies
-        run: rsr exec > report.sarif
+        run: 'rsr exec > report.sarif'
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
