@@ -1,5 +1,6 @@
 name: "org-repo-checks"
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 2 * * *'
 jobs:
