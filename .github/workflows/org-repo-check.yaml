@@ -1,0 +1,10 @@
+name: "org-repo-checks"
+on:
+  schedule:
+    - cron: '0 2 * * *'
+jobs:
+  create_summary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create job summary
+        run: echo '# catenax-ng repository checks summary:' >> $GITHUB_STEP_SUMMARY
