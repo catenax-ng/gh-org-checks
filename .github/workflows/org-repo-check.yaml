@@ -8,4 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create job summary
-        run: echo '# catenax-ng repository checks summary:' >> $GITHUB_STEP_SUMMARY
+        uses: actions/github-script@6
+        with:
+          script: |
+            core.summary
+              .addHeading('Repository checks on catenax-ng')
+              .addTable([
+                [
+                  {data: 'Repository nane', header: true},
+                  {data: 'Has README.md', header: true},
+                  {data: 'Has NOTICE.md', header: true},
+                  {data: 'Has SECURITY.md', header: true}
+                ],
+                ['test', ':x:', ':heavy_check_mark:', '	:white_check_mark:'],
+              ])
+              .addLink('Information on FOSS files!', 'https://github.com/catenax-ng/foss-example#files-from-directory-catenax-ng-repositories')
+              .write()
+        #run: echo '# Repository checks on catenax-ng' >> $GITHUB_STEP_SUMMARY
