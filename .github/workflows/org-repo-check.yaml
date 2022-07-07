@@ -13,6 +13,9 @@ jobs:
   reposaur_audit:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Execute Policies
         uses: reposaur/repo-audit-action@v0.1.0
         with:
