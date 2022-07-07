@@ -8,22 +8,20 @@ on:
 permissions:
   security-events: write
 
+
 jobs:
   reposaur_audit:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Policy Library
-        uses: actions/checkout@v3
-        with:
-          repository: reposaur/policy
-
       - name: Execute Policies
         uses: reposaur/repo-audit-action@v0.1.0
+        with:
+          policy: "policies"
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Output reposaur results
-        run: ls && ls .reposaur
+        run: ls -a .reposaur
 
 #      - name: Upload Report
 #        uses: github/codeql-action/upload-sarif@v2
