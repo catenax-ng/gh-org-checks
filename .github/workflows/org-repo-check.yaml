@@ -22,7 +22,7 @@ jobs:
       - name: Execute Policies
         uses: reposaur/repo-audit-action@v0.1.0
         with:
-          policy: "policies"
+          policy: "./policies/"
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
