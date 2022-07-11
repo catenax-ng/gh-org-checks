@@ -40,7 +40,7 @@ jobs:
 
             const repositories = "${{steps.repo.outputs.repoList_ALL}}".split(',');
 
-            const repoTableLines = repositories.map(repo -> [repo, ':x:', ':heavy_check_mark:', ':white_check_mark:']);
+            const repoTableLines = repositories.map(repo => [repo, ':x:', ':heavy_check_mark:', ':white_check_mark:']);
 
             summary.addTable([
                 [
