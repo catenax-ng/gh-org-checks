@@ -37,7 +37,7 @@ jobs:
           script: |
             const summary = core.summary;
             summary.addHeading('Repository checks on catenax-ng')
-            console.log('repo list output: ' + ${{steps.repo.outputs.repoList_ALL}});
+            console.log("repo list output: ${{steps.repo.outputs.repoList_ALL}}");
 
             const repositories = "${{steps.repo.outputs.repoList_ALL}}".split(',');
             console.log('repositories: ' + repositories);
