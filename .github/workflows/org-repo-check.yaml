@@ -50,7 +50,7 @@ jobs:
 
             const repoTableLines = repositories.map(repo => [
               repo,
-              readmeExists(repo) ? ':white_check_mark:' : ':x:',
+              await readmeExists(repo) ? ':white_check_mark:' : ':x:',
               'N/A',
               'N/A'
             ]);
