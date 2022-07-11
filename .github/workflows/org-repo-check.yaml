@@ -5,54 +5,46 @@ on:
     - cron: '0 2 * * *'
   workflow_dispatch:
 
-permissions:
-  security-events: write
-
-
 jobs:
   reposaur_audit:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Check repo contents
-        run: ls -a
-
-      - name: Execute Policies
-        uses: reposaur/repo-audit-action@v0.1.0
+      - name: Get Repo List
+        id: repo
+        uses: yi-Xu-0100/repo-list-generator@v1.0.1
         with:
-          policy: "./policies/"
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          my_token: ${{ github.token }}
+          user: "catenax-ng"
+          # (default)max_page: 10
+          # (default)block_list:
+          # (default)allow_empty: false
 
-      - name: Output reposaur results
-        run: ls -a .reposaur
+      - name: Echo Output
+        run: |
+          echo repo: ${{steps.repo.outputs.repo}}
+          echo repoList: ${{steps.repo.outputs.repoList}}
+          echo repoList_ALL: ${{steps.repo.outputs.repoList_ALL}}
+          echo repoList_PRIVATE: ${{steps.repo.outputs.repoList_PRIVATE}}
+          echo privateList: ${{steps.repo.outputs.privateList}}
 
-#      - name: Upload Report
-#        uses: github/codeql-action/upload-sarif@v2
-#        with:
-#          sarif_file: report.sarif
-#          category: reposaur
-#
-#  create_summary:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Create job summary
-#        uses: actions/github-script@v6
-#        with:
-#          script: |
-#            core.summary
-#              .addHeading('Repository checks on catenax-ng')
-#              .addTable([
-#                [
-#                  {data: 'Repository nane', header: true},
-#                  {data: 'Has README.md', header: true},
-#                  {data: 'Has NOTICE.md', header: true},
-#                  {data: 'Has SECURITY.md', header: true}
-#                ],
-#                ['test', ':x:', ':heavy_check_mark:', '	:white_check_mark:'],
-#              ])
-#              .addLink('Information on FOSS files!', 'https://github.com/catenax-ng/foss-example#files-from-directory-catenax-ng-repositories')
-#              .write()
-        #run: echo '# Repository checks on catenax-ng' >> $GITHUB_STEP_SUMMARY
+
+  create_summary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create job summary
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const summary = core.summary;
+            summary.addHeading('Repository checks on catenax-ng')
+              .addTable([
+                [
+                  {data: 'Repository nane', header: true},
+                  {data: 'Has README.md', header: true},
+                  {data: 'Has NOTICE.md', header: true},
+                  {data: 'Has SECURITY.md', header: true}
+                ],
+                ['test', ':x:', ':heavy_check_mark:', '	:white_check_mark:'],
+              ])
+              .addLink('Information on FOSS files!', 'https://github.com/catenax-ng/foss-example#files-from-directory-catenax-ng-repositories')
+              .write()
