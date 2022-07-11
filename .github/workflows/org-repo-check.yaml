@@ -49,7 +49,7 @@ jobs:
                   {data: 'Has NOTICE.md', header: true},
                   {data: 'Has SECURITY.md', header: true}
                 ],
-                ..repoTableLines
+                ...repoTableLines
               ])
               .addLink('Information on FOSS files!', 'https://github.com/catenax-ng/foss-example#files-from-directory-catenax-ng-repositories')
               .write()
