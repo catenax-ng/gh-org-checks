@@ -26,12 +26,14 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const readmeExists = (repo) => {
+            const readmeExists = async (repo) => {
               try {
-                 readme = github.rest.repos.getContent({
-                  owner: "catenax-ng",
-                  repo: repo,
-                  path: "README.md"}
+                 readme = await github.rest.repos.getContent(
+                  {
+                    owner: "catenax-ng",
+                    repo: repo,
+                    path: "README.md"
+                  }
                 );
                 return readme.status === 200;
               } catch (e) {
