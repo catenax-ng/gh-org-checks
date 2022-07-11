@@ -27,12 +27,16 @@ jobs:
         with:
           script: |
             const readmeExists = (repo) => {
-              readme = github.rest.repos.getContent({
-                owner: "catenax-ng",
-                repo: repo,
-                path: "README.md"}
-              );
-              return readme.status === 200;
+              try {
+                 readme = github.rest.repos.getContent({
+                  owner: "catenax-ng",
+                  repo: repo,
+                  path: "README.md"}
+                );
+                return readme.status === 200;
+              } catch (e) {
+                return false
+              }
             };
 
             const summary = core.summary;
