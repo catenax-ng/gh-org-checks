@@ -35,16 +35,16 @@ jobs:
                     path: "README.md"
                   }
                 );
-                console.log("Checking README.md exists on " + repo + ". status: " + response.status);
+                console.log(`Checking README.md exists on ${repo}. status: {response.status}`);
                 return response.status === 200;
               } catch (e) {
-                console.log("error while checking repo: " + repo)
-                return false
+                console.log(`error while checking repo: ${repo}`);
+                return false;
               }
             };
 
             const summary = core.summary;
-            summary.addHeading('Repository checks on catenax-ng (public only)')
+            summary.addHeading('Repository checks on catenax-ng (public only)');
 
             const repositories = "${{steps.repo.outputs.repoList_ALL}}".split(',');
 
