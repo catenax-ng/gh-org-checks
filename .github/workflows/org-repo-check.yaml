@@ -48,12 +48,12 @@ jobs:
 
             const repositories = "${{steps.repo.outputs.repoList_ALL}}".split(',');
 
-            const repoTableLines = repositories.map(repo => [
-              repo,
-              await readmeExists(repo) ? ':white_check_mark:' : ':x:',
-              'N/A',
-              'N/A'
-            ]);
+            const repoTableLines = await Promise.all(
+              repositories.map(async repo: Promise<string> => {
+                var icon = await readmeExists(repo) ? ':white_check_mark:' : ':x:';
+                return [ repo, icon, 'N/A', 'N/A' ]
+              })
+            );
 
             summary.addTable([
                 [
