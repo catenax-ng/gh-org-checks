@@ -28,15 +28,17 @@ jobs:
           script: |
             const readmeExists = async (repo) => {
               try {
-                 readme = await github.rest.repos.getContent(
+                const response = await github.rest.repos.getContent(
                   {
                     owner: "catenax-ng",
                     repo: repo,
                     path: "README.md"
                   }
                 );
-                return readme.status === 200;
+                console.log("Checking README.md exists on " + repo + ". status: " + response.status);
+                return response.status === 200;
               } catch (e) {
+                console.log("error while checking repo: " + repo)
                 return false
               }
             };
