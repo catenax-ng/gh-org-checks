@@ -27,9 +27,13 @@ jobs:
         with:
           script: |
             const readmeExists = (repo) => {
-              readme = github.rest.repos.getContent({"catenax-ng", repo, "README.md"});
-              return readme.status === 200
-            }
+              readme = github.rest.repos.getContent({
+                owner: "catenax-ng",
+                repo: repo,
+                path: "README.md"}
+              );
+              return readme.status === 200;
+            };
 
             const summary = core.summary;
             summary.addHeading('Repository checks on catenax-ng (public only)')
