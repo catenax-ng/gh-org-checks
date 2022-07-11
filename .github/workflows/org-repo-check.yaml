@@ -16,31 +16,32 @@ jobs:
         with:
           my_token: ${{ github.token }}
           user: "catenax-ng"
-          # (default)max_page: 10
-          # (default)block_list:
-          # (default)allow_empty: false
 
       - name: Echo Output
         run: |
-          echo repo: ${{steps.repo.outputs.repo}}
           echo repoList: ${{steps.repo.outputs.repoList}}
           echo repoList_ALL: ${{steps.repo.outputs.repoList_ALL}}
-          echo repoList_PRIVATE: ${{steps.repo.outputs.repoList_PRIVATE}}
-          echo privateList: ${{steps.repo.outputs.privateList}}
 
       - name: Create job summary
         uses: actions/github-script@v6
         with:
           script: |
+            const readmeExists = (repo) => {
+              readme = github.rest.repos.getContent({"catenax-ng", repo, "README.md"});
+              return readme.status === 200
+            }
+
             const summary = core.summary;
-            summary.addHeading('Repository checks on catenax-ng')
-            console.log("repo list output: ${{steps.repo.outputs.repoList_ALL}}");
+            summary.addHeading('Repository checks on catenax-ng (public only)')
 
             const repositories = "${{steps.repo.outputs.repoList_ALL}}".split(',');
-            console.log('repositories: ' + repositories);
 
-            const repoTableLines = repositories.map(repo => [repo, ':x:', ':heavy_check_mark:', ':white_check_mark:']);
-            console.log('table rows: ' + repoTableLines);
+            const repoTableLines = repositories.map(repo => [
+              repo,
+              readmeExists(repo) ? ':white_check_mark:' : ':x:',
+              'N/A',
+              'N/A'
+            ]);
 
             summary.addTable([
                 [
