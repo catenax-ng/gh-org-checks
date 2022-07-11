@@ -37,14 +37,19 @@ jobs:
           script: |
             const summary = core.summary;
             summary.addHeading('Repository checks on catenax-ng')
-              .addTable([
+
+            const repositories = "${{steps.repo.outputs.repoList_ALL}}".split(',');
+
+            const repoTableLines = repositories.map(repo -> [repo, ':x:', ':heavy_check_mark:', ':white_check_mark:']);
+
+            summary.addTable([
                 [
                   {data: 'Repository nane', header: true},
                   {data: 'Has README.md', header: true},
                   {data: 'Has NOTICE.md', header: true},
                   {data: 'Has SECURITY.md', header: true}
                 ],
-                ['test', ':x:', ':heavy_check_mark:', '	:white_check_mark:'],
+                ..repoTableLines
               ])
               .addLink('Information on FOSS files!', 'https://github.com/catenax-ng/foss-example#files-from-directory-catenax-ng-repositories')
               .write()
