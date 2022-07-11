@@ -6,7 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  reposaur_audit:
+  audit_github_org:
+    name: Run GitHub organization audit
     runs-on: ubuntu-latest
     steps:
       - name: Get Repo List
@@ -27,10 +28,6 @@ jobs:
           echo repoList_PRIVATE: ${{steps.repo.outputs.repoList_PRIVATE}}
           echo privateList: ${{steps.repo.outputs.privateList}}
 
-
-  create_summary:
-    runs-on: ubuntu-latest
-    steps:
       - name: Create job summary
         uses: actions/github-script@v6
         with:
