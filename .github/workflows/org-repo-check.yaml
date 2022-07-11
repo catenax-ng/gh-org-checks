@@ -37,10 +37,13 @@ jobs:
           script: |
             const summary = core.summary;
             summary.addHeading('Repository checks on catenax-ng')
+            console.log('repo list output: ' + ${{steps.repo.outputs.repoList_ALL}});
 
             const repositories = "${{steps.repo.outputs.repoList_ALL}}".split(',');
+            console.log('repositories: ' + repositories);
 
             const repoTableLines = repositories.map(repo => [repo, ':x:', ':heavy_check_mark:', ':white_check_mark:']);
+            console.log('table rows: ' + repoTableLines);
 
             summary.addTable([
                 [
@@ -52,4 +55,4 @@ jobs:
                 ...repoTableLines
               ])
               .addLink('Information on FOSS files!', 'https://github.com/catenax-ng/foss-example#files-from-directory-catenax-ng-repositories')
-              .write()
+              .write();
