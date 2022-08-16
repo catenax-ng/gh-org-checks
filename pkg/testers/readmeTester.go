@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/catena-x/gh-org-checks/pkg/data"
 	"github.com/google/go-github/v45/github"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -15,6 +16,7 @@ type ReadmeTester struct {
 }
 
 func NewReadMeTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
+	log.Printf("creating new readme tester")
 	return ReadmeTester{
 		testType:     "ReadmeCheck",
 		ctx:          ctx,
@@ -24,18 +26,12 @@ func NewReadMeTester(ctx context.Context, owner string, githubClient *github.Cli
 }
 
 func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
+	log.Infof("perform readme test on repo %s", repoName)
 	_, resp, err := checker.githubClient.Repositories.GetReadme(checker.ctx, checker.owner, repoName, &github.RepositoryContentGetOptions{})
 
-	if err != nil {
-		return data.RepositoryReport{
-			TestName:    checker.testType,
-			GithubRepo:  repoName,
-			CheckStatus: data.Failed,
-			Log:         err.Error(),
-		}
-	}
-
-	if resp.StatusCode != http.StatusOK {
+	if err != nil || resp.StatusCode != http.StatusOK {
+		log.Infof("readme test failed on repo %s", repoName)
+		log.Debugf("error message: %s", err.Error())
 		return data.RepositoryReport{
 			TestName:    checker.testType,
 			GithubRepo:  repoName,
@@ -44,6 +40,7 @@ func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
 		}
 	}
 
+	log.Infof("readme test succeed on repo %s", repoName)
 	return data.RepositoryReport{
 		TestName:    checker.testType,
 		GithubRepo:  repoName,

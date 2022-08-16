@@ -7,7 +7,7 @@ import (
 	"github.com/catena-x/gh-org-checks/pkg/testrunner"
 	"github.com/go-co-op/gocron"
 	"github.com/gorilla/mux"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 	"time"
 )
@@ -20,6 +20,7 @@ var (
 func main() {
 
 	log.Printf("Starting service ...")
+	setLogLevel()
 
 	testRunner = testrunner.NewTestRunner()
 	testRunner.AddToTestSuites(testers.NewReadMeTester)
@@ -32,7 +33,12 @@ func main() {
 
 }
 
+func setLogLevel() {
+	log.SetLevel(log.DebugLevel)
+}
+
 func scheduleCronJobs() {
+	log.Println("scheduled test cronjob")
 	s := gocron.NewScheduler(time.UTC)
 	s.Every(1).Day().Do(func() {
 		go updateTestReport()
@@ -43,6 +49,7 @@ func scheduleCronJobs() {
 }
 
 func updateTestReport() {
+	log.Println("update test report")
 	orgReport = testRunner.PerformRepoChecks()
 }
 

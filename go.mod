@@ -6,6 +6,7 @@ require (
 	github.com/go-co-op/gocron v1.16.2
 	github.com/google/go-github/v45 v45.2.0
 	github.com/gorilla/mux v1.8.0
+	github.com/sirupsen/logrus v1.9.0
 	golang.org/x/oauth2 v0.0.0-20220808172628-8227340efae7
 )
 
@@ -16,6 +17,7 @@ require (
 	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
 	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 )

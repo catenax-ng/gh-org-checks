@@ -5,8 +5,8 @@ import (
 	"github.com/catena-x/gh-org-checks/pkg/data"
 	"github.com/catena-x/gh-org-checks/pkg/testers"
 	"github.com/google/go-github/v45/github"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
-	"log"
 	"os"
 	"time"
 )
@@ -50,6 +50,7 @@ func (runner *TestRunner) AddToTestSuites(f fn) {
 }
 
 func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
+	log.Printf("Perform tests on github org: %s", runner.githubOrg)
 	repos, _, err := runner.client.Repositories.ListByOrg(runner.ctx, runner.githubOrg, &github.RepositoryListByOrgOptions{
 		ListOptions: github.ListOptions{
 			Page:    0,
@@ -73,7 +74,7 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 
 	for _, repo := range repos {
 		repoName := *repo.Name
-		log.Printf("Checking repositroy: " + repoName)
+		log.Infof("Checking repositroy: " + repoName)
 
 		reposReport := data.RepositoriesReports{
 			RepositoryName:   repoName,
@@ -87,6 +88,8 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 
 		orgReport.RepositoriesReports = append(orgReport.RepositoriesReports, reposReport)
 	}
+
+	log.Printf("check completed!")
 
 	return orgReport
 }
