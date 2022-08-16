@@ -50,7 +50,12 @@ func (runner *TestRunner) AddToTestSuites(f fn) {
 }
 
 func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
-	repos, _, err := runner.client.Repositories.ListByOrg(runner.ctx, runner.githubOrg, &github.RepositoryListByOrgOptions{})
+	repos, _, err := runner.client.Repositories.ListByOrg(runner.ctx, runner.githubOrg, &github.RepositoryListByOrgOptions{
+		ListOptions: github.ListOptions{
+			Page:    0,
+			PerPage: 200,
+		},
+	})
 
 	if err != nil {
 		return data.OrgReports{
