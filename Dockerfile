@@ -15,6 +15,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /go/bin/main main.go
 FROM alpine:3.10 as runner
 
 RUN apk update && apk upgrade
+RUN apk add --no-cache tzdata
 
 WORKDIR /home/appuser
 
