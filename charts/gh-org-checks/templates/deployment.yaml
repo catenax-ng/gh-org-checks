@@ -30,5 +30,17 @@ spec:
             - name: http
               containerPort: 8000
               protocol: TCP
+          env:
+            - name: GITHUB_ORG_NAME
+              value: "catenax-ng"
+            - name: GITHUB_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: github-access-secret
+                  key: accessToken
+
+
+
+
 
 
