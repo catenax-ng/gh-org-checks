@@ -12,6 +12,7 @@ const (
 type OrgReports struct {
 	OrgName             string                `json:"GithubOrgName,omitempty"`
 	LastTestTime        time.Time             `json:"LastTestTime,omitempty"`
+	NumOfRepos          int                   `json:"NumOfRepos,omitempty"`
 	Error               error                 `json:"ErrorMessage,omitempty"`
 	RepositoriesReports []RepositoriesReports `json:"RepositoriesReports,omitempty"`
 }
