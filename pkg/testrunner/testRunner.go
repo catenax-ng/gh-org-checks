@@ -63,9 +63,11 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 		}
 	}
 
+	loc, _ := time.LoadLocation("Europe/Berlin")
+
 	orgReport := data.OrgReports{
 		OrgName:             runner.githubOrg,
-		LastTestTime:        time.Now(),
+		LastTestTime:        time.Now().In(loc),
 		RepositoriesReports: []data.RepositoriesReports{},
 	}
 
