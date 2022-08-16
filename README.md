@@ -7,7 +7,7 @@ set the following environment variables:
   
 Contain the github access token, which has admin premission to the targeted Github organization
 
-GITHUB_ORG_NAME 
+- GITHUB_ORG_NAME 
 
 Contain the name of github repo
 
