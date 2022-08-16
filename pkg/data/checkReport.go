@@ -1,5 +1,7 @@
 package data
 
+import "time"
+
 type TestStatus string
 
 const (
@@ -9,7 +11,8 @@ const (
 
 type OrgReports struct {
 	OrgName             string                `json:"GithubOrgName,omitempty"`
-	Error               string                `json:"ErrorMessage,omitempty"`
+	LastTestTime        time.Time             `json:"LastTestTime,omitempty"`
+	Error               error                 `json:"ErrorMessage,omitempty"`
 	RepositoriesReports []RepositoriesReports `json:"RepositoriesReports,omitempty"`
 }
 

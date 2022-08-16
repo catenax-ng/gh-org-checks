@@ -1,4 +1,4 @@
-package pkg
+package testrunner
 
 import (
 	"context"
@@ -8,6 +8,7 @@ import (
 	"golang.org/x/oauth2"
 	"log"
 	"os"
+	"time"
 )
 
 type fn func(ctx context.Context, owner string, githubClient *github.Client) testers.GithubTester
@@ -53,12 +54,13 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 
 	if err != nil {
 		return data.OrgReports{
-			Error: err.Error(),
+			Error: err,
 		}
 	}
 
 	orgReport := data.OrgReports{
 		OrgName:             runner.githubOrg,
+		LastTestTime:        time.Now(),
 		RepositoriesReports: []data.RepositoriesReports{},
 	}
 

@@ -14,7 +14,7 @@ type ReadmeTester struct {
 	githubClient *github.Client
 }
 
-func NewReadMeChecker(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
+func NewReadMeTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	return ReadmeTester{
 		testType:     "ReadmeCheck",
 		ctx:          ctx,

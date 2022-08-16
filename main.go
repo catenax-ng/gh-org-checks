@@ -2,31 +2,62 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"github.com/catena-x/gh-org-checks/pkg"
+	"github.com/catena-x/gh-org-checks/pkg/data"
 	"github.com/catena-x/gh-org-checks/pkg/testers"
+	"github.com/catena-x/gh-org-checks/pkg/testrunner"
+	"github.com/go-co-op/gocron"
+	"github.com/gorilla/mux"
 	"log"
+	"net/http"
+	"time"
+)
+
+var (
+	orgReport  = data.OrgReports{}
+	testRunner *testrunner.TestRunner
 )
 
 func main() {
 
 	log.Printf("Starting service ...")
 
-	testRunner := pkg.NewTestRunner()
-	testRunner.AddToTestSuites(testers.NewReadMeChecker)
-	result := testRunner.PerformRepoChecks()
+	testRunner = testrunner.NewTestRunner()
+	testRunner.AddToTestSuites(testers.NewReadMeTester)
+	scheduleCronJobs()
 
-	res, err := PrettyStruct(result)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(res)
+	router := mux.NewRouter()
+	router.HandleFunc("/report", returnOrgReport).Methods(http.MethodGet)
+
+	log.Fatal(http.ListenAndServe(":8000", router))
+
 }
 
-func PrettyStruct(data interface{}) (string, error) {
-	val, err := json.MarshalIndent(data, "", "    ")
-	if err != nil {
-		return "", err
+func scheduleCronJobs() {
+	s := gocron.NewScheduler(time.UTC)
+	s.Every(1).Day().Do(func() {
+		go updateTestReport()
+	},
+	)
+
+	s.StartAsync()
+}
+
+func updateTestReport() {
+	orgReport = testRunner.PerformRepoChecks()
+}
+
+func returnOrgReport(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	log.Println("returning test report")
+	json.NewEncoder(w).Encode(orgReport)
+}
+
+func handleError(w http.ResponseWriter, err error) {
+	log.Printf("Error: %s\n", err)
+	w.WriteHeader(http.StatusBadRequest)
+	if orgReport.Error != nil {
+		handleError(w, orgReport.Error)
+	} else {
+		w.Write([]byte(err.Error()))
 	}
-	return string(val), nil
 }
