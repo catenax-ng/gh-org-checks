@@ -51,13 +51,3 @@ func returnOrgReport(w http.ResponseWriter, r *http.Request) {
 	log.Println("returning test report")
 	json.NewEncoder(w).Encode(orgReport)
 }
-
-func handleError(w http.ResponseWriter, err error) {
-	log.Printf("Error: %s\n", err)
-	w.WriteHeader(http.StatusBadRequest)
-	if orgReport.Error != nil {
-		handleError(w, orgReport.Error)
-	} else {
-		w.Write([]byte(err.Error()))
-	}
-}
