@@ -1,0 +1,35 @@
+
+<h1>
+  {{title}}
+</h1>
+<p>
+  Last test happened on : {{testTimeStamp}}
+</p>
+<main>
+  <table>
+    <thead>
+    <tr>
+      <th>
+        Github Repository
+      </th>
+      <th *ngFor="let test of repoTests">
+        {{test.TestName}}
+      </th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let reports of repoReports">
+      <td>
+        {{reports.RepositoryName}}
+      </td>
+      <td *ngFor="let report of reports.RepositoryReport">
+        {{ report.TestStatus}}
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</main>
+
+
