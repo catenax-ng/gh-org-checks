@@ -243,4 +243,12 @@ dd {
   .tooltip:hover .tooltiptext {
     visibility: visible;
   }
+
+  .tick {
+    color:green;
+  }
+
+  .cross {
+    color:red;
+  }
 }

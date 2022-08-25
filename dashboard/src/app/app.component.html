@@ -24,8 +24,8 @@
         <a href="{{reports.RepositoryURL}}">{{reports.RepositoryName}}</a>
       </td>
       <td *ngFor="let report of reports.RepositoryReport">
-        <span *ngIf="report.TestStatus == 'Successful'">&#10004;</span>
-        <span *ngIf="report.TestStatus == 'Failure'" class="tooltip">&#10008;
+        <span *ngIf="report.TestStatus == 'Successful'" class="tick">&#10004;</span>
+        <span *ngIf="report.TestStatus == 'Failure'" class="tooltip cross">&#10008;
           <div class="tooltiptext">
            {{report.Log}}
           </div>
