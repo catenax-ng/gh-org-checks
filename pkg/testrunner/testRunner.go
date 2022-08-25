@@ -79,6 +79,7 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 
 		reposReport := data.RepositoriesReports{
 			RepositoryName:   repoName,
+			RepositoryURL:    *repo.HTMLURL,
 			RepositoryReport: []data.RepositoryReport{},
 		}
 

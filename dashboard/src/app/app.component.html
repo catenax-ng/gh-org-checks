@@ -21,10 +21,15 @@
     <tbody>
     <tr *ngFor="let reports of repoReports">
       <td>
-        {{reports.RepositoryName}}
+        <a href="{{reports.RepositoryURL}}">{{reports.RepositoryName}}</a>
       </td>
       <td *ngFor="let report of reports.RepositoryReport">
-        {{ report.TestStatus}}
+        <span *ngIf="report.TestStatus == 'Successful'">&#10004;</span>
+        <span *ngIf="report.TestStatus == 'Failure'" class="tooltip">&#10008;
+          <div class="tooltiptext">
+           {{report.Log}}
+          </div>
+        </span>
       </td>
     </tr>
 

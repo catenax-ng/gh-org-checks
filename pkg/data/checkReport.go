@@ -19,6 +19,7 @@ type OrgReports struct {
 
 type RepositoriesReports struct {
 	RepositoryName   string             `json:"RepositoryName,omitempty"`
+	RepositoryURL    string             `json:"RepositoryURL,omitempty"`
 	RepositoryReport []RepositoryReport `json:"RepositoryReport,omitempty"`
 }
 
