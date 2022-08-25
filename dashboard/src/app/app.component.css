@@ -5,7 +5,7 @@ p {
 }
 
 main {
-  background-color: #2C3845;
+  background-color: #445e7a;
 }
 
 h1 {
@@ -33,6 +33,7 @@ td {
   padding: 10px 10px 0;
   text-align: center;
 }
+
 td:before {
   content: attr(data-title);
   color: #7a91aa;
@@ -52,9 +53,9 @@ th {
 }
 
 thead th {
-  background-color: #202932;
+  background-color: #566f8c;
   color: #fff;
-  border: 1px solid #202932;
+  border: 1px solid #3f566c;
 }
 
 tfoot th {
@@ -196,6 +197,7 @@ dd {
   td {
     border: 1px solid #28333f;
   }
+
   td:before {
     display: none;
   }
@@ -205,7 +207,7 @@ dd {
   }
 
   tr:nth-child(2n+2) td {
-    background-color: #242e39;
+    background-color: #405467;
   }
 
   tfoot th {
@@ -218,6 +220,10 @@ dd {
 
   a {
     color: white;
+  }
+
+  .centerText {
+    text-align: center;
   }
 
   .tooltip {

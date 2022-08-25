@@ -12,7 +12,7 @@
       <th>
         Github Repository
       </th>
-      <th *ngFor="let test of repoTests">
+      <th *ngFor="let test of repoTests" class="centerText">
         {{test.TestName}}
       </th>
       <th></th>
@@ -23,7 +23,7 @@
       <td>
         <a href="{{reports.RepositoryURL}}">{{reports.RepositoryName}}</a>
       </td>
-      <td *ngFor="let report of reports.RepositoryReport">
+      <td *ngFor="let report of reports.RepositoryReport" class="centerText">
         <span *ngIf="report.TestStatus == 'Successful'" class="tick">&#10004;</span>
         <span *ngIf="report.TestStatus == 'Failure'" class="tooltip cross">&#10008;
           <div class="tooltiptext">
