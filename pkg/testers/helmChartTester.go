@@ -58,7 +58,7 @@ func (checker HelmChartTester) PerformTest(repoName string) data.RepositoryRepor
 
 		if resp.StatusCode != http.StatusOK {
 			testSuccess = false
-			logs += fmt.Sprintf("Content %s %s is missing/n", content.content, content.path)
+			logs += fmt.Sprintf("Content %s \"%s\" is missing\n", content.content, content.path)
 		} else if err != nil {
 			testSuccess = false
 			logs += err.Error()

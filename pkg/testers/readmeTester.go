@@ -36,7 +36,7 @@ func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
 			TestName:    checker.testType,
 			GithubRepo:  repoName,
 			CheckStatus: data.Failed,
-			Log:         "Readme file is not present!",
+			Log:         "Readme file is missing!",
 		}
 	}
 
