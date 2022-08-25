@@ -68,7 +68,7 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 
 	orgReport := data.OrgReports{
 		OrgName:             runner.githubOrg,
-		LastTestTime:        time.Now().In(loc),
+		LastTestTime:        time.Now().In(loc).Format(time.RFC850),
 		NumOfRepos:          len(repos),
 		RepositoriesReports: []data.RepositoriesReports{},
 	}
