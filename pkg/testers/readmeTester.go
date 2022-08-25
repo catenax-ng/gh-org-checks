@@ -29,14 +29,25 @@ func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
 	log.Infof("perform readme test on repo %s", repoName)
 	_, resp, err := checker.githubClient.Repositories.GetReadme(checker.ctx, checker.owner, repoName, &github.RepositoryContentGetOptions{})
 
-	if err != nil || resp.StatusCode != http.StatusOK {
+	if resp.StatusCode != http.StatusOK {
+		log.Infof("readme test failed on repo %s", repoName)
+		log.Debugf("statud code: %d", resp.StatusCode)
+		return data.RepositoryReport{
+			TestName:    checker.testType,
+			GithubRepo:  repoName,
+			CheckStatus: data.Failed,
+			Log:         "Readme file is not present!",
+		}
+	}
+
+	if err != nil {
 		log.Infof("readme test failed on repo %s", repoName)
 		log.Debugf("error message: %s", err.Error())
 		return data.RepositoryReport{
 			TestName:    checker.testType,
 			GithubRepo:  repoName,
 			CheckStatus: data.Failed,
-			Log:         "Readme file is not present!",
+			Log:         err.Error(),
 		}
 	}
 
