@@ -26,8 +26,7 @@
       <td *ngFor="let report of reports.RepositoryReport" class="centerText">
         <span *ngIf="report.TestStatus == 'Successful'" class="tick">&#10004;</span>
         <span *ngIf="report.TestStatus == 'Failure'" class="tooltip cross">&#10008;
-          <div class="tooltiptext">
-           {{report.Log}}
+          <div class="tooltiptext" [innerText]="report.Log">
           </div>
         </span>
       </td>
