@@ -29,8 +29,8 @@ type ContentTester struct {
 	contents     []repositoryContent
 }
 
-func (checker ContentTester) contentTest(repoName string) data.RepositoryReport {
-
+func (checker ContentTester) PerformTest(repoName string) data.RepositoryReport {
+	log.Infof("perform %s on repo %s", checker.testType, repoName)
 	var testSuccess = true
 	var logs = ""
 
@@ -51,14 +51,14 @@ func (checker ContentTester) contentTest(repoName string) data.RepositoryReport 
 		return data.RepositoryReport{
 			TestName:    checker.testType,
 			GithubRepo:  repoName,
-			CheckStatus: data.Successful,
+			TestSucceed: true,
 		}
 	} else {
 		log.Infof("%s test failed on repo %s", checker.testType, repoName)
 		return data.RepositoryReport{
 			TestName:    checker.testType,
 			GithubRepo:  repoName,
-			CheckStatus: data.Failed,
+			TestSucceed: false,
 			Log:         logs,
 		}
 	}

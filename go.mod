@@ -3,6 +3,7 @@ module github.com/catena-x/gh-org-checks
 go 1.18
 
 require (
+	github.com/Masterminds/semver/v3 v3.1.1
 	github.com/go-co-op/gocron v1.16.2
 	github.com/google/go-github/v45 v45.2.0
 	github.com/gorilla/mux v1.8.0

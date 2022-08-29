@@ -35,7 +35,7 @@ func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
 		return data.RepositoryReport{
 			TestName:    checker.testType,
 			GithubRepo:  repoName,
-			CheckStatus: data.Failed,
+			TestSucceed: false,
 			Log:         "Readme file is missing!",
 		}
 	}
@@ -46,7 +46,7 @@ func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
 		return data.RepositoryReport{
 			TestName:    checker.testType,
 			GithubRepo:  repoName,
-			CheckStatus: data.Failed,
+			TestSucceed: false,
 			Log:         err.Error(),
 		}
 	}
@@ -55,7 +55,7 @@ func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
 	return data.RepositoryReport{
 		TestName:    checker.testType,
 		GithubRepo:  repoName,
-		CheckStatus: data.Successful,
+		TestSucceed: true,
 	}
 
 }

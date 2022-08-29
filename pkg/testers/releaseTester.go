@@ -2,9 +2,11 @@ package testers
 
 import (
 	"context"
+	"github.com/Masterminds/semver/v3"
 	"github.com/catena-x/gh-org-checks/pkg/data"
 	"github.com/google/go-github/v45/github"
 	log "github.com/sirupsen/logrus"
+	"net/http"
 )
 
 type ReleaseTester struct {
@@ -29,25 +31,26 @@ func NewReleaseTester(ctx context.Context, owner string, githubClient *github.Cl
 
 func (tester ReleaseTester) PerformTest(repoName string) data.RepositoryReport {
 	log.Infof("perform release test on repo %s", repoName)
-	result := tester.contentTest(repoName)
+	result := tester.ContentTester.PerformTest(repoName)
 
-	releases, _, err := tester.githubClient.Repositories.ListReleases(tester.ctx, tester.owner, repoName, &github.ListOptions{})
+	release, resp, err := tester.githubClient.Repositories.GetLatestRelease(tester.ctx, tester.owner, repoName)
 
-	if len(releases) == 0 {
-		if result.CheckStatus == data.Successful {
-			result.CheckStatus = data.Failed
-		}
-
+	if release == nil || resp.StatusCode == http.StatusNotFound {
+		result.TestSucceed = false
 		result.Log += "No releases found!\n"
+		return result
 	} else if err != nil {
-		if result.CheckStatus == data.Successful {
-			result.CheckStatus = data.Failed
-		}
-
+		result.TestSucceed = false
 		result.Log += err.Error() + "\n"
+		return result
+	}
 
-	} else {
-		result.CheckStatus = data.Successful
+	_, err = semver.StrictNewVersion(*release.Name)
+
+	if err != nil {
+		result.TestSucceed = false
+		result.Log += "Not Semantic versioned!\n"
+		return result
 	}
 
 	return result

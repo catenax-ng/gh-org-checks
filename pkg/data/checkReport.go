@@ -1,12 +1,5 @@
 package data
 
-type TestStatus string
-
-const (
-	Successful TestStatus = "Successful"
-	Failed     TestStatus = "Failure"
-)
-
 type OrgReports struct {
 	OrgName             string                `json:"GithubOrgName,omitempty"`
 	LastTestTime        string                `json:"LastTestTime,omitempty"`
@@ -22,8 +15,8 @@ type RepositoriesReports struct {
 }
 
 type RepositoryReport struct {
-	TestName    string     `json:"TestName,omitempty"`
-	GithubRepo  string     `json:"GithubRepositoryName,omitempty"`
-	CheckStatus TestStatus `json:"TestStatus,omitempty"`
-	Log         string     `json:"Log,omitempty"`
+	TestName    string `json:"TestName,omitempty"`
+	GithubRepo  string `json:"GithubRepositoryName,omitempty"`
+	TestSucceed bool   `json:"TestSucceed,omitempty"`
+	Log         string `json:"Log,omitempty"`
 }
