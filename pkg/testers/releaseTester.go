@@ -36,11 +36,11 @@ func (tester ReleaseTester) PerformTest(repoName string) data.RepositoryReport {
 	release, resp, err := tester.githubClient.Repositories.GetLatestRelease(tester.ctx, tester.owner, repoName)
 
 	if release == nil || resp.StatusCode == http.StatusNotFound {
-		result.TestSucceed = false
+		result.TestSucceed = result.TestSucceed || false
 		result.Log += "No releases found!\n"
 		return result
 	} else if err != nil {
-		result.TestSucceed = false
+		result.TestSucceed = result.TestSucceed || false
 		result.Log += err.Error() + "\n"
 		return result
 	}
@@ -52,6 +52,8 @@ func (tester ReleaseTester) PerformTest(repoName string) data.RepositoryReport {
 		result.Log += "Not Semantic versioned!\n"
 		return result
 	}
+
+	result.TestSucceed = result.TestSucceed || true
 
 	return result
 }
