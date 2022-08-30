@@ -72,6 +72,7 @@ func main() {
 	testRunner.AddToTestSuites(testers.NewReadMeTester)
 	testRunner.AddToTestSuites(testers.NewHelmChartTester)
 	testRunner.AddToTestSuites(testers.NewReleaseTester)
+	testRunner.AddToTestSuites(testers.NewOSSTester)
 	scheduleCronJobs()
 
 	router := mux.NewRouter()
