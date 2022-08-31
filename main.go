@@ -68,12 +68,7 @@ func main() {
 	log.Printf("Starting service ...")
 	setLogLevel()
 
-	testRunner = testrunner.NewTestRunner()
-	testRunner.AddToTestSuites(testers.NewReadMeTester)
-	testRunner.AddToTestSuites(testers.NewHelmChartTester)
-	testRunner.AddToTestSuites(testers.NewReleaseTester)
-	testRunner.AddToTestSuites(testers.NewOSSTester)
-	scheduleCronJobs()
+	initTestSuiteAndSchedule(*testrunner.NewTestRunner())
 
 	router := mux.NewRouter()
 	router.HandleFunc("/report", returnOrgReport).Methods(http.MethodGet)
@@ -85,22 +80,32 @@ func main() {
 
 }
 
+func initTestSuiteAndSchedule(testRunner testrunner.TestRunner) {
+	testRunner.AddToTestSuites(testers.NewReadMeTester)
+	testRunner.AddToTestSuites(testers.NewHelmChartTester)
+	testRunner.AddToTestSuites(testers.NewReleaseTester)
+	testRunner.AddToTestSuites(testers.NewOSSTester)
+	testRunner.AddToTestSuites(testers.NewSecurityActionTester)
+
+	scheduleCronJobs(testRunner)
+}
+
 func setLogLevel() {
 	log.SetLevel(log.DebugLevel)
 }
 
-func scheduleCronJobs() {
+func scheduleCronJobs(testRunner testrunner.TestRunner) {
 	log.Println("scheduled test cronjob")
 	s := gocron.NewScheduler(time.UTC)
 	s.Every(1).Day().Do(func() {
-		go updateTestReport()
+		go updateTestReport(testRunner)
 	},
 	)
 
 	s.StartAsync()
 }
 
-func updateTestReport() {
+func updateTestReport(testRunner testrunner.TestRunner) {
 	log.Println("update test report")
 	orgReport = testRunner.PerformRepoChecks()
 }
