@@ -245,6 +245,8 @@ dd {
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
+    top: -5px;
+    right: -1500%;
   }
 
   .tooltip:hover .tooltiptext {
