@@ -170,6 +170,10 @@ dd {
   }
 }
 @media (min-width: 720px) {
+  .hscroll {
+    overflow-x: auto; /* Horizontal */
+  }
+
   table {
     display: table;
   }

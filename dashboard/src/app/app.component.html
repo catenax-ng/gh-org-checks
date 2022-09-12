@@ -6,37 +6,39 @@
   Last test happened on : {{testTimeStamp}}
 </p>
 <main>
-  <table>
-    <thead>
-    <tr>
-      <th>
-        Github Repository
-      </th>
-      <th *ngFor="let test of repoTests" class="centerText">
-        {{test.TestName}}
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let reports of repoReports">
-      <td>
-        <a href="{{reports.RepositoryURL}}">{{reports.RepositoryName}}</a>
-      </td>
-      <td *ngFor="let report of reports.RepositoryReport" class="centerText">
-        <div *ngIf="report.TestSucceed; else other_content">
-          <span  class="tick">&#10004;</span>
-        </div>
-        <ng-template #other_content>
-          <span class="tooltip cross">&#10008;
-            <div class="tooltiptext" [innerText]="report.Log">
-            </div>
-          </span>
-        </ng-template>
-      </td>
-    </tr>
+  <div class="hscroll">
+    <table>
+      <thead>
+      <tr>
+        <th>
+          Github Repository
+        </th>
+        <th *ngFor="let test of repoTests" class="centerText">
+          {{test.TestName}}
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let reports of repoReports">
+        <td>
+          <a href="{{reports.RepositoryURL}}">{{reports.RepositoryName}}</a>
+        </td>
+        <td *ngFor="let report of reports.RepositoryReport" class="centerText">
+          <div *ngIf="report.TestSucceed; else other_content">
+            <span  class="tick">&#10004;</span>
+          </div>
+          <ng-template #other_content>
+            <span class="tooltip cross">&#10008;
+              <div class="tooltiptext" [innerText]="report.Log">
+              </div>
+            </span>
+          </ng-template>
+        </td>
+      </tr>
 
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </main>
 
 
