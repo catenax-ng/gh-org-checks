@@ -13,9 +13,8 @@ nameOverride: ""
 fullnameOverride: ""
 
 securityContext:
- runAsUser: gh-user
- runAsGroup: gh-group
- runAsNonRoot: true
+   runAsUser: 1000
+   runAsNonRoot: true
 
 service:
   port: 80
