@@ -2,11 +2,7 @@ FROM golang:alpine AS backendBuilder
 
 WORKDIR /go/src/github.com/catena-x/gh-org-checks
 
-# Copy and download dependency using go mod
-COPY ./pkg ./pkg/
-COPY go.mod ./
-COPY go.sum ./
-COPY main.go ./
+COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /go/bin/main main.go
 
