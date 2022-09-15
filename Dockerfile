@@ -21,6 +21,7 @@ FROM alpine:3.16 as runner
 RUN apk update && apk upgrade
 RUN apk add --no-cache tzdata
 
+USER gh-user:gh-group
 WORKDIR /home/appuser
 
 COPY --from=backendBuilder /go/bin/main .
