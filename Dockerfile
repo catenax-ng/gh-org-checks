@@ -1,6 +1,5 @@
 FROM golang:alpine AS backendBuilder
 
-# Move to working directory /build
 WORKDIR /go/src/github.com/catena-x/gh-org-checks
 
 # Copy and download dependency using go mod
@@ -21,7 +20,7 @@ COPY ./dashboard ./
 RUN npm run build --prod
 
 #use a small image to run
-FROM alpine:3.10 as runner
+FROM alpine:3.16 as runner
 
 RUN apk update && apk upgrade
 RUN apk add --no-cache tzdata

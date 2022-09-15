@@ -24,8 +24,12 @@ func NewTestRunner() *TestRunner {
 	githubOrg := os.Getenv("GITHUB_ORG_NAME")
 	githubAccessToken := os.Getenv("GITHUB_ACCESS_TOKEN")
 
-	if githubOrg == "" || githubAccessToken == "" {
-		panic("Missing essential environment variable: GITHUB_ORG_NAME, GITHUB_ACCESS_TOKEN")
+	if githubOrg == "" {
+		githubOrg = "catenax-ng"
+	}
+
+	if githubAccessToken == "" {
+		panic("Missing essential environment variable: GITHUB_ACCESS_TOKEN")
 	}
 
 	ctx := context.Background()

@@ -9,5 +9,5 @@ Contain the github access token, which has admin premission to the targeted Gith
 
 - GITHUB_ORG_NAME 
 
-Contain the name of github org
+Contain the name of github org, if unset, default to "catenax-ng"
 
