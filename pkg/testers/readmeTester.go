@@ -31,7 +31,7 @@ func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
 
 	if resp.StatusCode != http.StatusOK {
 		log.Infof("readme test failed on repo %s", repoName)
-		log.Debugf("statud code: %d", resp.StatusCode)
+		log.Infof("statud code: %d", resp.StatusCode)
 		return data.RepositoryReport{
 			TestName:    checker.testType,
 			GithubRepo:  repoName,

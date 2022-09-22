@@ -55,10 +55,10 @@ func (runner *TestRunner) AddToTestSuites(f fn) {
 
 func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 	log.Printf("Perform tests on github org: %s", runner.githubOrg)
-	repos, _, err := runner.client.Repositories.ListByOrg(runner.ctx, runner.githubOrg, &github.RepositoryListByOrgOptions{
+	_, response, err := runner.client.Repositories.ListByOrg(runner.ctx, runner.githubOrg, &github.RepositoryListByOrgOptions{
 		ListOptions: github.ListOptions{
 			Page:    0,
-			PerPage: 200,
+			PerPage: 100,
 		},
 	})
 
@@ -68,34 +68,60 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 		}
 	}
 
+	log.Infof("list repos, first page: %d", response.FirstPage)
+	log.Infof("list repos, prev page: %d", response.PrevPage)
+	log.Infof("list repos, prev page: %d", response.NextPage)
+	log.Infof("list repos, last page: %d", response.LastPage)
+
 	loc, _ := time.LoadLocation("Europe/Berlin")
 
 	orgReport := data.OrgReports{
-		OrgName:             runner.githubOrg,
-		LastTestTime:        time.Now().In(loc).Format(time.RFC850),
-		NumOfRepos:          len(repos),
+		OrgName:      runner.githubOrg,
+		LastTestTime: time.Now().In(loc).Format(time.RFC850),
+		//NumOfRepos:          len(repos),
 		RepositoriesReports: []data.RepositoriesReports{},
 	}
 
-	for _, repo := range repos {
-		repoName := *repo.Name
-		log.Infof("Checking repositroy: " + repoName)
+	numRepo := 0
 
-		reposReport := data.RepositoriesReports{
-			RepositoryName:   repoName,
-			RepositoryURL:    *repo.HTMLURL,
-			RepositoryReport: []data.RepositoryReport{},
+	for currentPage := response.FirstPage; currentPage <= response.LastPage; currentPage++ {
+		repos, _, err := runner.client.Repositories.ListByOrg(runner.ctx, runner.githubOrg, &github.RepositoryListByOrgOptions{
+			ListOptions: github.ListOptions{
+				Page:    0,
+				PerPage: 100,
+			},
+		})
+
+		if err != nil {
+			return data.OrgReports{
+				Error: err,
+			}
 		}
 
-		for _, test := range runner.testSuites {
-			report := test.PerformTest(repoName)
-			reposReport.RepositoryReport = append(reposReport.RepositoryReport, report)
-		}
+		numRepo += len(repos)
 
-		orgReport.RepositoriesReports = append(orgReport.RepositoriesReports, reposReport)
+		for _, repo := range repos {
+			repoName := *repo.Name
+			log.Infof("Checking repositroy: " + repoName)
+
+			reposReport := data.RepositoriesReports{
+				RepositoryName:   repoName,
+				RepositoryURL:    *repo.HTMLURL,
+				RepositoryReport: []data.RepositoryReport{},
+			}
+
+			for _, test := range runner.testSuites {
+				report := test.PerformTest(repoName)
+				reposReport.RepositoryReport = append(reposReport.RepositoryReport, report)
+			}
+
+			orgReport.RepositoriesReports = append(orgReport.RepositoriesReports, reposReport)
+		}
 	}
 
 	log.Printf("check completed!")
+
+	orgReport.NumOfRepos = numRepo
 
 	return orgReport
 }
