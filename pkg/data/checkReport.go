@@ -1,11 +1,11 @@
 package data
 
 type OrgReports struct {
-	OrgName             string                `json:"GithubOrgName,omitempty"`
-	LastTestTime        string                `json:"LastTestTime,omitempty"`
-	NumOfRepos          int                   `json:"NumOfRepos,omitempty"`
-	Error               error                 `json:"ErrorMessage,omitempty"`
-	RepositoriesReports []RepositoriesReports `json:"RepositoriesReports,omitempty"`
+	OrgName           string                `json:"GithubOrgName,omitempty"`
+	LastTestTime      string                `json:"LastTestTime,omitempty"`
+	NumOfRepos        int                   `json:"NumOfRepos,omitempty"`
+	Error             error                 `json:"ErrorMessage,omitempty"`
+	RepositoryReports []RepositoriesReports `json:"RepositoryReports,omitempty"`
 }
 
 type RepositoriesReports struct {

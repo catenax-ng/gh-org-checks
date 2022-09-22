@@ -15,7 +15,7 @@ type ReadmeTester struct {
 	githubClient *github.Client
 }
 
-func NewReadMeTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
+func NewReadmeTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	log.Printf("creating new readme tester")
 	return ReadmeTester{
 		testType:     "ReadmeCheck",
@@ -31,7 +31,7 @@ func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
 
 	if resp.StatusCode != http.StatusOK {
 		log.Infof("readme test failed on repo %s", repoName)
-		log.Infof("statud code: %d", resp.StatusCode)
+		log.Infof("status code: %d", resp.StatusCode)
 		return data.RepositoryReport{
 			TestName:    checker.testType,
 			GithubRepo:  repoName,
@@ -51,7 +51,7 @@ func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
 		}
 	}
 
-	log.Infof("readme test succeed on repo %s", repoName)
+	log.Infof("readme test is successful on repo %s", repoName)
 	return data.RepositoryReport{
 		TestName:    checker.testType,
 		GithubRepo:  repoName,

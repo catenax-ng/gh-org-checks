@@ -28,8 +28,8 @@ export class AppComponent implements OnInit{
         this.allData = data;
         this.testSuccess = true;
         this.testTimeStamp = this.allData.LastTestTime;
-        this.repoTests = this.allData.RepositoriesReports[0].RepositoryReport;
-        this.repoReports = this.allData.RepositoriesReports
+        this.repoTests = this.allData.RepositoryReports[0].RepositoryReport;
+        this.repoReports = this.allData.RepositoryReports
       },
       error => {console.error('There was an error!', error), this.testSuccess = false}
     )

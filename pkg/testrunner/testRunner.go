@@ -79,7 +79,7 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 		OrgName:      runner.githubOrg,
 		LastTestTime: time.Now().In(loc).Format(time.RFC850),
 		//NumOfRepos:          len(repos),
-		RepositoriesReports: []data.RepositoriesReports{},
+		RepositoryReports: []data.RepositoriesReports{},
 	}
 
 	numRepo := 0
@@ -115,7 +115,7 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 				reposReport.RepositoryReport = append(reposReport.RepositoryReport, report)
 			}
 
-			orgReport.RepositoriesReports = append(orgReport.RepositoriesReports, reposReport)
+			orgReport.RepositoryReports = append(orgReport.RepositoryReports, reposReport)
 		}
 	}
 

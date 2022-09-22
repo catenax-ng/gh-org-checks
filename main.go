@@ -81,7 +81,7 @@ func main() {
 }
 
 func initTestSuiteAndSchedule(testRunner testrunner.TestRunner) {
-	testRunner.AddToTestSuites(testers.NewReadMeTester)
+	testRunner.AddToTestSuites(testers.NewReadmeTester)
 	testRunner.AddToTestSuites(testers.NewHelmChartTester)
 	testRunner.AddToTestSuites(testers.NewReleaseTester)
 	testRunner.AddToTestSuites(testers.NewOSSTester)
