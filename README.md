@@ -4,25 +4,19 @@
 
 The service will check on each and every repository daily (see [ticket](https://jira.catena-x.net/browse/A1ODT-504)), the available checks are:
 
-- readmeCheck:
+- **readmeCheck**: Check if a readme file is present 
 
-  check if a readme file is present 
+- **helmChartCheck**: Check if the directory `chart` is present under root directory
 
-- helmChartCheck:
-
-  check if the directory `chart` is present under root directory
-
-- releaseCheck:
+- **releaseCheck**:
   check if either of two condition are met
     - if a `changelog.md` file exist
     - if a github release exist and if so, weather it use semantic versioning
 
 
-- OSSCheck:
-  Check if all necessary files are present for repository to be open source ready
+- **OSSCheck**: Check if all necessary files are present for repository to be open source ready
 
-- SecurityActionCheck:
-- Check if list of github action suggested by security team are present
+- **SecurityActionCheck**: Check if list of github action suggested by security team are present
 
 
 ## How to run the service
