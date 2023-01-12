@@ -1,13 +1,16 @@
 # Default values for gh-org-checks.
 # Declare variables to be passed into your templates.
 
+# The name of the Github organization to scan
+githubOrgName: "catenax-ng"
+
 replicaCount: 2
 
 image:
   repository: ghcr.io/catenax-ng/gh-org-checks
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "2022-09-15.33.fe79449"
 
 nameOverride: ""
 fullnameOverride: ""
@@ -18,7 +21,6 @@ securityContext:
 
 service:
   port: 80
-
 
 ingress:
   enabled: true
@@ -35,6 +37,3 @@ ingress:
     - secretName: tls-secret
       hosts:
         - gh-org-checks.core.demo.catena-x.net
-
-
-
