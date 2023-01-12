@@ -26,7 +26,7 @@ spec:
               protocol: TCP
           env:
             - name: GITHUB_ORG_NAME
-              value: "catenax-ng"
+              value: {{ .Values.githubOrgName }}
             - name: GITHUB_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
