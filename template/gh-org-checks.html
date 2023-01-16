@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/gh-org-checks.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+    <h1>
+        GitHub Check Results
+    </h1>
+    <p>
+        Last test happened on : {{ .LastTestTime }}
+    </p>
+    <main>
+        <div class="hscroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Github Repository
+                        </th>
+                        {{ range (index .RepositoryReports 0).RepositoryReport }}
+                        <th  class="centerText">
+                            {{ .TestName }}
+                        </th>
+                        {{ end }}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range .RepositoryReports }}
+                    <tr>
+                        <td>
+                            <a href="{{ .RepositoryURL }}">{{ .RepositoryName }}</a>
+                        </td>
+                        {{ range .RepositoryReport }}
+                        <td class="centerText">
+                            {{ if eq true .TestSucceed }}
+                            <div>
+                                <span class="tick">&#10004;</span>
+                            </div>
+                            {{ else }}
+                            <div>
+                                <span class="tooltip cross">&#10008;
+                                    <div class="tooltiptext">
+                                        {{ .Log }}
+                                    </div>
+                                </span>
+                            </div>
+                            {{ end }}
+                        </td>
+                        {{ end }}
+                    </tr>
+                    {{ end }}
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>
