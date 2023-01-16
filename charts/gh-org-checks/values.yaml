@@ -10,7 +10,7 @@ image:
   repository: ghcr.io/catenax-ng/gh-org-checks
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "2022-09-15.33.fe79449"
+  tag: "1.1.0"
 
 nameOverride: ""
 fullnameOverride: ""
