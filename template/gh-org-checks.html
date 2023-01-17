@@ -21,7 +21,7 @@
         <div class="hscroll">
             <table>
                 <thead>
-                    <tr>
+                    <tr class="main-header">
                         <th>
                             Github Repository
                         </th>
@@ -48,7 +48,7 @@
                             <div>
                                 <span class="tooltip cross">&#10008;
                                     <div class="tooltiptext">
-                                        {{ .Log }}
+                                        {{ printf "%v" .Log }}
                                     </div>
                                 </span>
                             </div>

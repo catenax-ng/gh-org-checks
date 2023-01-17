@@ -1,96 +1,100 @@
 /* You can add global styles to this file, and also import other style files */
 * {
     box-sizing: border-box;
-  }
-  
-  html.open, body.open {
+}
+
+html.open,
+body.open {
     height: 100%;
     overflow: hidden;
-  }
-  
-  html {
+}
+
+html {
     padding: 40px;
     font-size: 62.5%;
-  }
-  
-  body {
+}
+
+body {
     padding: 20px;
-    background-color: #5BB9B8;
+    background: #1e1e1e;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    color: #fff;
+    color: #dadde1;
     font-size: 1.6rem;
     font-family: 'Lato', sans-serif;
-  }
+}
 
-  
 p {
     text-align: center;
     margin: 20px 0 60px;
-  }
-  
-  main {
-    background-color: #445e7a;
-  }
-  
-  h1 {
+}
+
+h1 {
     text-align: center;
     font-weight: 300;
-  }
-  
-  table {
+}
+
+table {
     display: block;
-  }
-  
-  tr, td, tbody, tfoot {
+    border: thin solid grey;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgb(88 88 88 / 15%);
+}
+
+tr,
+td,
+tbody,
+tfoot {
     display: block;
-  }
-  
-  thead {
+}
+
+tr:nth-child(odd) {
+    background: black;
+}
+
+thead {
     display: none;
-  }
-  
-  tr {
+}
+
+tr {
     padding-bottom: 10px;
-  }
-  
-  td {
+}
+
+td {
     padding: 10px 10px 0;
     text-align: center;
-  }
-  
-  td:before {
+}
+
+td:before {
     content: attr(data-title);
     color: #7a91aa;
     text-transform: uppercase;
     font-size: 1.4rem;
     padding-right: 10px;
     display: block;
-  }
-  
-  table {
+}
+
+table {
     width: 100%;
-  }
-  
-  th {
+}
+
+th {
     text-align: left;
     font-weight: 700;
-  }
-  
-  thead th {
-    background-color: #566f8c;
-    color: #fff;
-    border: 1px solid #3f566c;
-  }
-  
-  tfoot th {
+}
+
+tr.main-header {
+    background: #2b2b2d;
+}
+
+tfoot th {
     display: block;
     padding: 10px;
     text-align: center;
     color: #b8c4d2;
-  }
-  
-  .button {
+}
+
+.button {
     line-height: 1;
     display: inline-block;
     font-size: 1.2rem;
@@ -99,17 +103,18 @@ p {
     color: #fff;
     padding: 8px;
     background-color: #4b908f;
-  }
-  
-  .select {
+}
+
+.select {
     padding-bottom: 20px;
     border-bottom: 1px solid #28333f;
-  }
-  .select:before {
+}
+
+.select:before {
     display: none;
-  }
-  
-  .detail {
+}
+
+.detail {
     background-color: #BD2A4E;
     width: 100%;
     height: 100%;
@@ -126,39 +131,40 @@ p {
     -o-transition: -o-transform 0.3s ease-out;
     -webkit-transition: -webkit-transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
-  }
-  .detail.open {
+}
+
+.detail.open {
     -moz-transform: translateX(0);
     -ms-transform: translateX(0);
     -webkit-transform: translateX(0);
     transform: translateX(0);
-  }
-  
-  .detail-container {
+}
+
+.detail-container {
     margin: 0 auto;
     padding: 40px;
     max-width: 500px;
-  }
-  
-  dl {
+}
+
+dl {
     margin: 0;
     padding: 0;
-  }
-  
-  dt {
+}
+
+dt {
     font-size: 2.2rem;
     font-weight: 300;
-  }
-  
-  dd {
+}
+
+dd {
     margin: 0 0 40px 0;
     font-size: 1.8rem;
     padding-bottom: 5px;
     border-bottom: 1px solid #ac2647;
     box-shadow: 0 1px 0 #c52c51;
-  }
-  
-  .close {
+}
+
+.close {
     background: none;
     padding: 18px;
     color: #fff;
@@ -174,120 +180,127 @@ p {
     -o-transition: border 0.3s linear;
     -webkit-transition: border 0.3s linear;
     transition: border 0.3s linear;
-  }
-  .close:hover, .close:focus {
+}
+
+.close:hover,
+.close:focus {
     background-color: #a82545;
     border: 1px solid #a82545;
-  }
-  
-  @media (min-width: 460px) {
+}
+
+@media (min-width: 460px) {
     td {
-      text-align: left;
+        text-align: left;
     }
+
     td:before {
-      display: inline-block;
-      text-align: right;
-      width: 140px;
+        display: inline-block;
+        text-align: right;
+        width: 140px;
     }
-  
+
     .select {
-      padding-left: 160px;
+        padding-left: 160px;
     }
-  }
-  @media (min-width: 720px) {
+}
+
+@media (min-width: 720px) {
     .hscroll {
         overflow-x: auto;
         overflow-y: hidden;
     }
-  
+
     table {
-      display: table;
+        display: table;
     }
-  
+
     tr {
-      display: table-row;
+        display: table-row;
     }
-  
-    td, th {
-      display: table-cell;
+
+    td,
+    th {
+        display: table-cell;
     }
-  
+
     tbody {
-      display: table-row-group;
+        display: table-row-group;
     }
-  
+
     thead {
-      display: table-header-group;
+        display: table-header-group;
     }
-  
+
     tfoot {
-      display: table-footer-group;
+        display: table-footer-group;
     }
-  
+
     td {
-      border: 1px solid #28333f;
+        border: 1px solid #28333f;
     }
-  
+
     td:before {
-      display: none;
+        display: none;
     }
-  
-    td, th {
-      padding: 10px;
+
+    td,
+    th {
+        padding: 10px;
     }
-  
-    tr:nth-child(2n+2) td {
-      background-color: #405467;
-    }
-  
+
     tfoot th {
-      display: table-cell;
+        display: table-cell;
     }
-  
+
     .select {
-      padding: 10px;
+        padding: 10px;
     }
-  
-    a {
-      color: white;
+
+    a:link {
+        color: #faa023;
     }
-  
+
+    a:visited {
+        color: #faa023;
+    }
+
     .centerText {
-      text-align: center;
+        text-align: center;
     }
-  
+
     .tooltip {
-      position: relative;
-      display: inline-block;
-      border-bottom: 1px dotted black;
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px black;
     }
-  
+
     .tooltip .tooltiptext {
-      visibility: hidden;
-      width: max-content;
-      max-width: 350px;
-      text-align: left;
-      background-color: black;
-      color: #fff;
-      border-radius: 6px;
-      padding: 5px 0;
-  
-      /* Position the tooltip */
-      position: absolute;
-      z-index: 1;
-      top: -5px;
-      right: -1500%;
+        visibility: hidden;
+        width: max-content;
+        max-width: 350px;
+        text-align: left;
+        background-color: black;
+        color: #fff;
+        border-radius: 6px;
+        border: 1px solid white;
+        padding: 5px;
+
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+        top: -5px;
+        right: -1500%;
     }
-  
+
     .tooltip:hover .tooltiptext {
-      visibility: visible;
+        visibility: visible;
     }
-  
+
     .tick {
-      color:green;
+        color: green;
     }
-  
+
     .cross {
-      color:red;
+        color: red;
     }
-  }
+}
