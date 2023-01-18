@@ -2,10 +2,11 @@ package testers
 
 import (
 	"context"
+	"net/http"
+
 	"github.com/catena-x/gh-org-checks/pkg/data"
 	"github.com/google/go-github/v45/github"
 	log "github.com/sirupsen/logrus"
-	"net/http"
 )
 
 type ReadmeTester struct {
@@ -18,7 +19,7 @@ type ReadmeTester struct {
 func NewReadmeTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	log.Printf("creating new readme tester")
 	return ReadmeTester{
-		testType:     "ReadmeCheck",
+		testType:     "Readme",
 		ctx:          ctx,
 		owner:        owner,
 		githubClient: githubClient,
@@ -36,7 +37,7 @@ func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
 			TestName:    checker.testType,
 			GithubRepo:  repoName,
 			TestSucceed: false,
-			Log:         "Readme file is missing!",
+			Log:         []string{"Readme file is missing!"},
 		}
 	}
 
@@ -47,7 +48,7 @@ func (checker ReadmeTester) PerformTest(repoName string) data.RepositoryReport {
 			TestName:    checker.testType,
 			GithubRepo:  repoName,
 			TestSucceed: false,
-			Log:         err.Error(),
+			Log:         []string{err.Error()},
 		}
 	}
 

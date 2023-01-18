@@ -18,8 +18,8 @@
         Last test happened on : {{ .LastTestTime }}
     </p>
     <main>
-        <div class="hscroll">
-            <table>
+        <div>
+            <table class="hscroll">
                 <thead>
                     <tr class="main-header">
                         <th>
@@ -48,7 +48,10 @@
                             <div>
                                 <span class="tooltip cross">&#10008;
                                     <div class="tooltiptext">
-                                        {{ printf "%v" .Log }}
+                                        {{range $logElement := .Log }} 
+                                            {{$logElement}}
+                                            <br>
+                                        {{end}}
                                     </div>
                                 </span>
                             </div>

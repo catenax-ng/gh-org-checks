@@ -62,7 +62,14 @@ tr {
 
 td {
     padding: 10px 10px 0;
-    text-align: center;
+}
+
+td:not(:first-child) {
+    width: 100px;
+}
+
+td:first-child {
+    max-width: 500px;
 }
 
 td:before {
@@ -81,6 +88,10 @@ table {
 th {
     text-align: left;
     font-weight: 700;
+}
+
+th:not(:first-child) {
+    width: 100px;
 }
 
 tr.main-header {
@@ -189,22 +200,6 @@ dd {
 }
 
 @media (min-width: 460px) {
-    td {
-        text-align: left;
-    }
-
-    td:before {
-        display: inline-block;
-        text-align: right;
-        width: 140px;
-    }
-
-    .select {
-        padding-left: 160px;
-    }
-}
-
-@media (min-width: 720px) {
     .hscroll {
         overflow-x: auto;
         overflow-y: hidden;

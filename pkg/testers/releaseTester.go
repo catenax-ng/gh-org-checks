@@ -2,11 +2,12 @@ package testers
 
 import (
 	"context"
+	"net/http"
+
 	"github.com/Masterminds/semver/v3"
 	"github.com/catena-x/gh-org-checks/pkg/data"
 	"github.com/google/go-github/v45/github"
 	log "github.com/sirupsen/logrus"
-	"net/http"
 )
 
 type ReleaseTester struct {
@@ -16,7 +17,7 @@ type ReleaseTester struct {
 func NewReleaseTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	log.Printf("creating new release tester")
 	return ReleaseTester{ContentTester{
-		testType:     "ReleaseCheck",
+		testType:     "Release",
 		ctx:          ctx,
 		owner:        owner,
 		githubClient: githubClient,
@@ -37,11 +38,11 @@ func (tester ReleaseTester) PerformTest(repoName string) data.RepositoryReport {
 
 	if release == nil || resp.StatusCode == http.StatusNotFound {
 		result.TestSucceed = result.TestSucceed || false
-		result.Log += "No releases found!\n"
+		result.Log = append(result.Log, "No releases found!\n")
 		return result
 	} else if err != nil {
 		result.TestSucceed = result.TestSucceed || false
-		result.Log += err.Error() + "\n"
+		result.Log = append(result.Log, err.Error()+"\n")
 		return result
 	}
 
@@ -49,7 +50,7 @@ func (tester ReleaseTester) PerformTest(repoName string) data.RepositoryReport {
 
 	if err != nil {
 		result.TestSucceed = false
-		result.Log += "Not Semantic versioned!\n"
+		result.Log = append(result.Log, "Not Semantic versioned!\n")
 		return result
 	}
 
