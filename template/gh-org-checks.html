@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8">
     <title>Dashboard</title>
+
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="/static/css/simple-datatables.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="/static/css/gh-org-checks.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body>
@@ -17,54 +18,62 @@
     <p>
         Last test happened on : {{ .LastTestTime }}
     </p>
-    <main>
-        <div>
-            <table class="hscroll">
-                <thead>
-                    <tr class="main-header">
-                        <th>
-                            Github Repository
-                        </th>
-                        {{ range (index .RepositoryReports 0).RepositoryReport }}
-                        <th class="centerText">
-                            {{ .TestName }}
-                        </th>
-                        {{ end }}
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ range .RepositoryReports }}
-                    <tr>
-                        <td>
-                            <a href="{{ .RepositoryURL }}">{{ .RepositoryName }}</a>
-                        </td>
-                        {{ range .RepositoryReport }}
-                        <td class="centerText">
-                            {{ if eq true .TestSucceed }}
-                            <div>
-                                <span class="tick">&#10004;</span>
-                            </div>
-                            {{ else }}
-                            <div>
-                                <span class="tooltip cross">&#10008;
-                                    <div class="tooltiptext">
-                                        {{range $logElement := .Log }} 
-                                            {{$logElement}}
-                                            <br>
-                                        {{end}}
-                                    </div>
-                                </span>
-                            </div>
-                            {{ end }}
-                        </td>
-                        {{ end }}
-                    </tr>
+    <div>
+        <table>
+            <thead>
+                <tr class="main-header">
+                    <th>
+                        Github Repository
+                    </th>
+                    {{ range (index .RepositoryReports 0).RepositoryReport }}
+                    <th class="centerText">
+                        {{ .TestName }}
+                    </th>
                     {{ end }}
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .RepositoryReports }}
+                <tr>
+                    <td>
+                        <a href="{{ .RepositoryURL }}">{{ .RepositoryName }}</a>
+                    </td>
+                    {{ range .RepositoryReport }}
+                    <td class="centerText">
+                        {{ if eq true .TestSucceed }}
+                        <div>
+                            <span class="tick">&#10004;</span>
+                        </div>
+                        {{ else }}
+                        <div>
+                            <span class="tooltip cross">&#10008;
+                                <div class="tooltiptext">
+                                    {{range $logElement := .Log }}
+                                    {{$logElement}}
+                                    <br>
+                                    {{end}}
+                                </div>
+                            </span>
+                        </div>
+                        {{ end }}
+                    </td>
+                    {{ end }}
+                </tr>
+                {{ end }}
 
-                </tbody>
-            </table>
-        </div>
-    </main>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- CDN -->
+    <script src="/static/js/simple-datatables.js"></script>
+    <!-- Custom Code -->
+    <script>
+        new window.simpleDatatables.DataTable("table", {
+            paging: false,
+            searchable: true
+        })
+    </script>
 </body>
 
 </html>

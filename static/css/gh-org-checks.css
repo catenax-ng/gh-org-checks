@@ -35,33 +35,25 @@ h1 {
 }
 
 table {
-    display: block;
     border: thin solid grey;
     border-radius: 10px;
     box-shadow: 0 0 20px rgb(88 88 88 / 15%);
-}
-
-tr,
-td,
-tbody,
-tfoot {
-    display: block;
-}
-
-tr:nth-child(odd) {
-    background: black;
-}
-
-thead {
-    display: none;
+    min-width: 500px;
+    margin: 0 auto;
 }
 
 tr {
     padding-bottom: 10px;
 }
 
+tr:nth-child(odd) {
+    background: black;
+}
+
 td {
+    padding: 10px;
     padding: 10px 10px 0;
+    border: 1px solid #28333f;
 }
 
 td:not(:first-child) {
@@ -81,11 +73,9 @@ td:before {
     display: block;
 }
 
-table {
-    width: 100%;
-}
-
 th {
+    padding: 10px;
+    padding: 10px 10px 0;
     text-align: left;
     font-weight: 700;
 }
@@ -99,10 +89,17 @@ tr.main-header {
 }
 
 tfoot th {
-    display: block;
     padding: 10px;
     text-align: center;
     color: #b8c4d2;
+}
+
+a:link {
+    color: #faa023;
+}
+
+a:visited {
+    color: #faa023;
 }
 
 .button {
@@ -118,6 +115,7 @@ tfoot th {
 
 .select {
     padding-bottom: 20px;
+    padding: 10px;
     border-bottom: 1px solid #28333f;
 }
 
@@ -157,24 +155,6 @@ tfoot th {
     max-width: 500px;
 }
 
-dl {
-    margin: 0;
-    padding: 0;
-}
-
-dt {
-    font-size: 2.2rem;
-    font-weight: 300;
-}
-
-dd {
-    margin: 0 0 40px 0;
-    font-size: 1.8rem;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #ac2647;
-    box-shadow: 0 1px 0 #c52c51;
-}
-
 .close {
     background: none;
     padding: 18px;
@@ -199,103 +179,47 @@ dd {
     border: 1px solid #a82545;
 }
 
-@media (min-width: 460px) {
-    .hscroll {
-        overflow-x: auto;
-        overflow-y: hidden;
-    }
+.hscroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
 
-    table {
-        display: table;
-    }
+.centerText {
+    text-align: center;
+}
 
-    tr {
-        display: table-row;
-    }
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px black;
+}
 
-    td,
-    th {
-        display: table-cell;
-    }
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: max-content;
+    max-width: 350px;
+    text-align: left;
+    background-color: black;
+    color: #fff;
+    border-radius: 6px;
+    border: 1px solid white;
+    padding: 5px;
 
-    tbody {
-        display: table-row-group;
-    }
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: -800%;
+}
 
-    thead {
-        display: table-header-group;
-    }
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
 
-    tfoot {
-        display: table-footer-group;
-    }
+.tick {
+    color: green;
+}
 
-    td {
-        border: 1px solid #28333f;
-    }
-
-    td:before {
-        display: none;
-    }
-
-    td,
-    th {
-        padding: 10px;
-    }
-
-    tfoot th {
-        display: table-cell;
-    }
-
-    .select {
-        padding: 10px;
-    }
-
-    a:link {
-        color: #faa023;
-    }
-
-    a:visited {
-        color: #faa023;
-    }
-
-    .centerText {
-        text-align: center;
-    }
-
-    .tooltip {
-        position: relative;
-        display: inline-block;
-        border-bottom: 1px black;
-    }
-
-    .tooltip .tooltiptext {
-        visibility: hidden;
-        width: max-content;
-        max-width: 350px;
-        text-align: left;
-        background-color: black;
-        color: #fff;
-        border-radius: 6px;
-        border: 1px solid white;
-        padding: 5px;
-
-        /* Position the tooltip */
-        position: absolute;
-        z-index: 1;
-        top: -5px;
-        right: -1500%;
-    }
-
-    .tooltip:hover .tooltiptext {
-        visibility: visible;
-    }
-
-    .tick {
-        color: green;
-    }
-
-    .cross {
-        color: red;
-    }
+.cross {
+    color: red;
 }
