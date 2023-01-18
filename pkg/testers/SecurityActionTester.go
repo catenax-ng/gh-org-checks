@@ -2,6 +2,7 @@ package testers
 
 import (
 	"context"
+
 	"github.com/google/go-github/v45/github"
 	log "github.com/sirupsen/logrus"
 )
@@ -13,7 +14,7 @@ type SecurityActionTester struct {
 func NewSecurityActionTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	log.Printf("creating new security github actions tester")
 	return SecurityActionTester{ContentTester{
-		testType:     "SecurityActionCheck",
+		testType:     "Security Action",
 		ctx:          ctx,
 		owner:        owner,
 		githubClient: githubClient,

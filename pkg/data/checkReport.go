@@ -15,8 +15,8 @@ type RepositoriesReports struct {
 }
 
 type RepositoryReport struct {
-	TestName    string `json:"TestName,omitempty"`
-	GithubRepo  string `json:"GithubRepositoryName,omitempty"`
-	TestSucceed bool   `json:"TestSucceed,omitempty"`
-	Log         string `json:"Log,omitempty"`
+	TestName    string   `json:"TestName,omitempty"`
+	GithubRepo  string   `json:"GithubRepositoryName,omitempty"`
+	TestSucceed bool     `json:"TestSucceed,omitempty"`
+	Log         []string `json:"Log,omitempty"`
 }

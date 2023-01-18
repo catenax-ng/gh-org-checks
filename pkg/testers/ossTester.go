@@ -2,6 +2,7 @@ package testers
 
 import (
 	"context"
+
 	"github.com/google/go-github/v45/github"
 	log "github.com/sirupsen/logrus"
 )
@@ -13,7 +14,7 @@ type OSSTester struct {
 func NewOSSTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	log.Printf("creating new OSS tester")
 	return OSSTester{ContentTester{
-		testType:     "OSSCheck",
+		testType:     "OSS",
 		ctx:          ctx,
 		owner:        owner,
 		githubClient: githubClient,
