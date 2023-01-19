@@ -11,28 +11,29 @@ import (
 )
 
 type ReleaseTester struct {
+	TestProperty
 	ContentTester
 }
 
 func NewReleaseTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	log.Printf("creating new release tester")
-	return ReleaseTester{ContentTester{
-		testType:     "Release",
-		ctx:          ctx,
-		owner:        owner,
-		githubClient: githubClient,
-		contents: []repositoryContent{
-			{
-				path:        "CHANGELOG.md",
-				contentType: File,
+	return ReleaseTester{
+		TestProperty: TestProperty{testName: "Release"},
+		ContentTester: ContentTester{
+			ctx:          ctx,
+			owner:        owner,
+			githubClient: githubClient,
+			contents: []repositoryContent{
+				{
+					path:        "CHANGELOG.md",
+					contentType: File,
+				},
 			},
-		},
-	}}
+		}}
 }
 
-func (tester ReleaseTester) PerformTest(repoName string) data.RepositoryReport {
-	log.Infof("perform release test on repo %s", repoName)
-	result := tester.ContentTester.PerformTest(repoName)
+func (tester ReleaseTester) PerformTest(repoName string, testName string) data.RepositoryReport {
+	result := tester.ContentTester.PerformTest(repoName, testName)
 
 	release, resp, err := tester.githubClient.Repositories.GetLatestRelease(tester.ctx, tester.owner, repoName)
 

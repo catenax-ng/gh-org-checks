@@ -3,11 +3,10 @@ package testers
 import (
 	"context"
 	"fmt"
-	"net/http"
-
 	"github.com/catena-x/gh-org-checks/pkg/data"
 	"github.com/google/go-github/v45/github"
 	log "github.com/sirupsen/logrus"
+	"net/http"
 )
 
 type contentType string
@@ -23,15 +22,14 @@ type repositoryContent struct {
 }
 
 type ContentTester struct {
-	testType     string
 	ctx          context.Context
 	owner        string
 	githubClient *github.Client
 	contents     []repositoryContent
 }
 
-func (checker ContentTester) PerformTest(repoName string) data.RepositoryReport {
-	log.Infof("perform %s on repo %s", checker.testType, repoName)
+func (checker ContentTester) PerformTest(repoName string, testName string) data.RepositoryReport {
+	log.Infof("perform content check for %s test on repo %s", testName, repoName)
 	var testSuccess = true
 	var logs []string
 
@@ -50,14 +48,14 @@ func (checker ContentTester) PerformTest(repoName string) data.RepositoryReport 
 
 	if testSuccess {
 		return data.RepositoryReport{
-			TestName:    checker.testType,
+			TestName:    testName,
 			GithubRepo:  repoName,
 			TestSucceed: true,
 		}
 	} else {
-		log.Infof("%s test failed on repo %s", checker.testType, repoName)
+		log.Infof("%s test failed on repo %s", testName, repoName)
 		return data.RepositoryReport{
-			TestName:    checker.testType,
+			TestName:    testName,
 			GithubRepo:  repoName,
 			TestSucceed: false,
 			Log:         logs,

@@ -43,11 +43,11 @@ func pageHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func initTestSuiteAndSchedule(testRunner testrunner.TestRunner) {
-	testRunner.AddToTestSuites(testers.NewReadmeTester)
 	testRunner.AddToTestSuites(testers.NewHelmChartTester)
 	testRunner.AddToTestSuites(testers.NewReleaseTester)
 	testRunner.AddToTestSuites(testers.NewOSSTester)
 	testRunner.AddToTestSuites(testers.NewSecurityActionTester)
+	testRunner.AddToTestSuites(testers.NewTRGOneTester)
 
 	scheduleCronJobs(testRunner)
 }
