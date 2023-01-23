@@ -14,12 +14,9 @@ type OSSTester struct {
 func NewOSSTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	log.Printf("creating new OSS tester")
 	return OSSTester{
-		TestProperty: TestProperty{testName: "OSS"},
-		ContentTester: ContentTester{
-			ctx:          ctx,
-			owner:        owner,
-			githubClient: githubClient,
-			contents: []repositoryContent{
+		TestProperty: NewTestProperty("OSS"),
+		ContentTester: NewContentTester(ctx, owner, githubClient,
+			[]repositoryContent{
 				{
 					path:        "LICENSE",
 					contentType: File,
@@ -36,6 +33,6 @@ func NewOSSTester(ctx context.Context, owner string, githubClient *github.Client
 					path:        "SECURITY.md",
 					contentType: File,
 				},
-			},
-		}}
+			}),
+	}
 }

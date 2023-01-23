@@ -18,6 +18,7 @@ const (
 
 type repositoryContent struct {
 	path        string
+	refLink     string
 	contentType contentType
 }
 
@@ -28,20 +29,36 @@ type ContentTester struct {
 	contents     []repositoryContent
 }
 
+func NewContentTester(ctx context.Context, owner string, githubClient *github.Client, contents []repositoryContent) ContentTester {
+	log.Printf("creating new content tester")
+	return ContentTester{
+		ctx:          ctx,
+		owner:        owner,
+		githubClient: githubClient,
+		contents:     contents,
+	}
+}
+
 func (checker ContentTester) PerformTest(repoName string, testName string) data.RepositoryReport {
 	log.Infof("perform content check for %s test on repo %s", testName, repoName)
 	var testSuccess = true
-	var logs []string
+	var logItem []data.LogElement
 
 	for _, content := range checker.contents {
 		_, _, resp, err := checker.githubClient.Repositories.GetContents(checker.ctx, checker.owner, repoName, content.path, &github.RepositoryContentGetOptions{})
 
 		if resp.StatusCode != http.StatusOK {
 			testSuccess = false
-			logs = append(logs, fmt.Sprintf("Content %s \"%s\" is missing!", content.contentType, content.path))
+			logItem = append(logItem, data.LogElement{
+				LogContent: fmt.Sprintf("Content %s \"%s\" is missing!", content.contentType, content.path),
+				RefLink:    content.refLink,
+			})
 		} else if err != nil {
 			testSuccess = false
-			logs = append(logs, err.Error())
+			logItem = append(logItem, data.LogElement{
+				LogContent: err.Error(),
+				RefLink:    content.refLink,
+			})
 		}
 
 	}
@@ -58,7 +75,7 @@ func (checker ContentTester) PerformTest(repoName string, testName string) data.
 			TestName:    testName,
 			GithubRepo:  repoName,
 			TestSucceed: false,
-			Log:         logs,
+			Log:         logItem,
 		}
 	}
 

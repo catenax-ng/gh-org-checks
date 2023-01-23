@@ -49,7 +49,11 @@
                             <span class="tooltip cross">&#10008;
                                 <div class="tooltiptext">
                                     {{range $logElement := .Log }}
-                                    {{$logElement}}
+                                    {{if $logElement.RefLink}}
+                                    <a href={{$logElement.RefLink}}>{{$logElement.LogContent}}</a>
+                                    {{else}}
+                                    {{$logElement.LogContent}}
+                                    {{end}}
                                     <br>
                                     {{end}}
                                 </div>

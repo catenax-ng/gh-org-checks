@@ -1,5 +1,9 @@
 package data
 
+type LogElement struct {
+	LogContent string `json:"LogContent,omitempty"`
+	RefLink    string `json:"refLink,omitempty"`
+}
 type OrgReports struct {
 	OrgName           string                `json:"GithubOrgName,omitempty"`
 	LastTestTime      string                `json:"LastTestTime,omitempty"`
@@ -15,8 +19,8 @@ type RepositoriesReports struct {
 }
 
 type RepositoryReport struct {
-	TestName    string   `json:"TestName,omitempty"`
-	GithubRepo  string   `json:"GithubRepositoryName,omitempty"`
-	TestSucceed bool     `json:"TestSucceed,omitempty"`
-	Log         []string `json:"Log,omitempty"`
+	TestName    string       `json:"TestName,omitempty"`
+	GithubRepo  string       `json:"GithubRepositoryName,omitempty"`
+	TestSucceed bool         `json:"TestSucceed,omitempty"`
+	Log         []LogElement `json:"Log,omitempty"`
 }

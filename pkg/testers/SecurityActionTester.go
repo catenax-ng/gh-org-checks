@@ -15,12 +15,9 @@ type SecurityActionTester struct {
 func NewSecurityActionTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	log.Printf("creating new security github actions tester")
 	return SecurityActionTester{
-		TestProperty: TestProperty{testName: "Security Action"},
-		ContentTester: ContentTester{
-			ctx:          ctx,
-			owner:        owner,
-			githubClient: githubClient,
-			contents: []repositoryContent{
+		TestProperty: NewTestProperty("Security Action"),
+		ContentTester: NewContentTester(ctx, owner, githubClient,
+			[]repositoryContent{
 				{
 					path:        ".github/workflows",
 					contentType: Directory,
@@ -37,6 +34,6 @@ func NewSecurityActionTester(ctx context.Context, owner string, githubClient *gi
 					path:        ".github/workflows/kics.yml",
 					contentType: File,
 				},
-			},
-		}}
+			}),
+	}
 }

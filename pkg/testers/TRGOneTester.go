@@ -17,23 +17,16 @@ type TRGOneTester struct {
 func NewTRGOneTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	log.Printf("creating new TRG 1 tester")
 	return TRGOneTester{
-		TestProperty: TestProperty{testName: "TRG 1"},
-		ContentTester: ContentTester{
-			ctx:          ctx,
-			owner:        owner,
-			githubClient: githubClient,
-			contents: []repositoryContent{
+		TestProperty: NewTestProperty(common.TestTrgOne),
+		ContentTester: NewContentTester(ctx, owner, githubClient,
+			[]repositoryContent{
 				{
 					path:        "CHANGELOG.md",
 					contentType: File,
+					refLink:     common.GetRefLink(common.TrgOneThree),
 				},
-			},
-		},
-		ReadmeTester: ReadmeTester{
-			ctx:          ctx,
-			owner:        owner,
-			githubClient: githubClient,
-		},
+			}),
+		ReadmeTester: NewReadmeTester(ctx, owner, githubClient),
 	}
 }
 

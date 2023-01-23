@@ -14,16 +14,13 @@ type HelmChartTester struct {
 func NewHelmChartTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	log.Printf("creating new helmchart tester")
 	return HelmChartTester{
-		TestProperty: TestProperty{testName: "Helm Chart"},
-		ContentTester: ContentTester{
-			ctx:          ctx,
-			owner:        owner,
-			githubClient: githubClient,
-			contents: []repositoryContent{
+		TestProperty: NewTestProperty("Helm Chart"),
+		ContentTester: NewContentTester(ctx, owner, githubClient,
+			[]repositoryContent{
 				{
 					path:        "charts",
 					contentType: Directory,
 				},
-			},
-		}}
+			}),
+	}
 }
