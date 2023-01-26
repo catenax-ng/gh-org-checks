@@ -22,7 +22,7 @@ The service will check on each and every repository daily (see [ticket](https://
   - [TRG 2.03: Repo structure](https://eclipse-tractusx.github.io/docs/release/trg-2/trg-2-3)
 
 ## How to run the service
-The service will run checks across Github repositories from a given GitHub organization
+The service will run checks across GitHub repositories from a given GitHub organization
 
 set the following environment variables:
 
