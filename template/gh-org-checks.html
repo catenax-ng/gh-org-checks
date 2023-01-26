@@ -41,24 +41,22 @@
                     {{ range .RepositoryReport }}
                     <td class="centerText">
                         {{ if eq true .TestSucceed }}
-                        <div>
-                            <span class="tick">&#10004;</span>
-                        </div>
+
+                          <span class="tick">&#10004;</span>
+
                         {{ else }}
-                        <div>
-                            <span class="tooltip cross">&#10008;
-                                <div class="tooltiptext">
-                                    {{range $logElement := .Log }}
-                                    {{if $logElement.RefLink}}
-                                    <a href={{$logElement.RefLink}}>{{$logElement.LogContent}}</a>
-                                    {{else}}
-                                    {{$logElement.LogContent}}
-                                    {{end}}
-                                    <br>
-                                    {{end}}
-                                </div>
-                            </span>
-                        </div>
+                        <details>
+                            <summary><span class="cross">&#10008;</span></summary>
+                            <ul class="leftText">
+                                {{ range $logElement := .Log }}
+                                {{if $logElement.RefLink}}
+                                <li><a href={{$logElement.RefLink}}>{{$logElement.LogContent}}</a></li>
+                                {{ else }}
+                                <li>{{$logElement.LogContent}}</li>
+                                {{ end }}
+                                {{ end }}
+                            </ul>
+                        </details>
                         {{ end }}
                     </td>
                     {{ end }}
