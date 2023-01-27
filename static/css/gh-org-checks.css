@@ -188,33 +188,10 @@ a:visited {
     text-align: center;
 }
 
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px black;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: max-content;
-    max-width: 350px;
+.leftText {
     text-align: left;
-    background-color: black;
-    color: #fff;
-    border-radius: 6px;
-    border: 1px solid white;
-    padding: 5px;
-
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-    top: -5px;
-    right: -800%;
 }
 
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-}
 
 .tick {
     color: green;
@@ -222,4 +199,12 @@ a:visited {
 
 .cross {
     color: red;
+}
+
+details summary {
+    cursor: help;
+}
+
+details summary p {
+    all: initial;
 }

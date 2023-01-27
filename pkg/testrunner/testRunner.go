@@ -111,7 +111,7 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 			}
 
 			for _, test := range runner.testSuites {
-				report := test.PerformTest(repoName)
+				report := test.PerformTest(repoName, test.GetTestName())
 				reposReport.RepositoryReport = append(reposReport.RepositoryReport, report)
 			}
 

@@ -5,5 +5,6 @@ import (
 )
 
 type GithubTester interface {
-	PerformTest(repoName string) data.RepositoryReport
+	GetTestName() string
+	PerformTest(repoName string, testName string) data.RepositoryReport
 }

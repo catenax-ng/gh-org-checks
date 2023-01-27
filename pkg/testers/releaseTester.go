@@ -2,6 +2,7 @@ package testers
 
 import (
 	"context"
+	"github.com/catena-x/gh-org-checks/pkg/common"
 	"net/http"
 
 	"github.com/Masterminds/semver/v3"
@@ -11,50 +12,60 @@ import (
 )
 
 type ReleaseTester struct {
+	TestProperty
 	ContentTester
 }
 
 func NewReleaseTester(ctx context.Context, owner string, githubClient *github.Client) GithubTester {
 	log.Printf("creating new release tester")
-	return ReleaseTester{ContentTester{
-		testType:     "Release",
-		ctx:          ctx,
-		owner:        owner,
-		githubClient: githubClient,
-		contents: []repositoryContent{
-			{
-				path:        "CHANGELOG.md",
-				contentType: File,
-			},
-		},
-	}}
+	return ReleaseTester{
+		TestProperty: NewTestProperty("Release"),
+		ContentTester: NewContentTester(ctx, owner, githubClient,
+			[]repositoryContent{
+				{
+					path:        "CHANGELOG.md",
+					contentType: File,
+				},
+			}),
+	}
 }
 
-func (tester ReleaseTester) PerformTest(repoName string) data.RepositoryReport {
-	log.Infof("perform release test on repo %s", repoName)
-	result := tester.ContentTester.PerformTest(repoName)
-
+func (tester ReleaseTester) PerformTest(repoName string, testName string) data.RepositoryReport {
+	result := tester.ContentTester.PerformTest(repoName, testName)
 	release, resp, err := tester.githubClient.Repositories.GetLatestRelease(tester.ctx, tester.owner, repoName)
 
+	furtherReport := data.RepositoryReport{
+		TestName:   testName,
+		GithubRepo: repoName,
+		Log:        []data.LogElement{},
+	}
+
 	if release == nil || resp.StatusCode == http.StatusNotFound {
-		result.TestSucceed = result.TestSucceed || false
-		result.Log = append(result.Log, "No releases found!\n")
-		return result
+		furtherReport.TestSucceed = false
+
+		furtherReport.Log = append(furtherReport.Log, data.LogElement{
+			LogContent: "No releases found!",
+		})
+		return common.MergeReports(result, furtherReport)
 	} else if err != nil {
-		result.TestSucceed = result.TestSucceed || false
-		result.Log = append(result.Log, err.Error()+"\n")
-		return result
+		furtherReport.TestSucceed = false
+		furtherReport.Log = append(furtherReport.Log, data.LogElement{
+			LogContent: err.Error(),
+		})
+
+		return common.MergeReports(result, furtherReport)
 	}
 
 	_, err = semver.StrictNewVersion(*release.Name)
 
 	if err != nil {
-		result.TestSucceed = false
-		result.Log = append(result.Log, "Not Semantic versioned!\n")
-		return result
+		furtherReport.TestSucceed = false
+		furtherReport.Log = append(furtherReport.Log, data.LogElement{
+			LogContent: "Not Semantic versioned!",
+		})
+		return common.MergeReports(result, furtherReport)
 	}
 
-	result.TestSucceed = result.TestSucceed || true
-
-	return result
+	furtherReport.TestSucceed = true
+	return common.MergeReports(result, furtherReport)
 }
