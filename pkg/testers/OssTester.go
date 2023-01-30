@@ -18,7 +18,7 @@ func NewOSSTester(ctx context.Context, owner string, githubClient *github.Client
 		ContentTester: NewContentTester(ctx, owner, githubClient,
 			[]repositoryContent{
 				{
-					path:        "LICENSE",
+					path:        "LICENCE",
 					contentType: File,
 				},
 				{
