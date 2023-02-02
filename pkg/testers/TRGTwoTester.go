@@ -2,6 +2,7 @@ package testers
 
 import (
 	"context"
+
 	"github.com/catena-x/gh-org-checks/pkg/common"
 	"github.com/catena-x/gh-org-checks/pkg/data"
 	"github.com/google/go-github/v45/github"
@@ -31,7 +32,7 @@ func NewTRGTwoTester(ctx context.Context, owner string, githubClient *github.Cli
 					refLink:     common.GetRefLink(common.TrgTwoThree),
 				},
 				{
-					path:        "AUTHORS.txt",
+					path:        "AUTHOR.md",
 					contentType: File,
 					refLink:     common.GetRefLink(common.TrgTwoThree),
 				},
