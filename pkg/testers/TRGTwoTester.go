@@ -32,7 +32,7 @@ func NewTRGTwoTester(ctx context.Context, owner string, githubClient *github.Cli
 					refLink:     common.GetRefLink(common.TrgTwoThree),
 				},
 				{
-					path:        "AUTHOR.md",
+					path:        "AUTHORS.md",
 					contentType: File,
 					refLink:     common.GetRefLink(common.TrgTwoThree),
 				},
