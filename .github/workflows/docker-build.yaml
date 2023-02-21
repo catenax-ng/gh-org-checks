@@ -38,14 +38,14 @@ jobs:
       # https://github.com/docker/metadata-action
       - name: Generate docker image tags and labels
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=schedule
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
+            type=semver,pattern={{major}}
             type=semver,pattern={{major}}.{{minor}}
 
       # Build and push Docker image with Buildx (don't push on PR)
