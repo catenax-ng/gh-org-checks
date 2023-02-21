@@ -98,6 +98,8 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 			}
 		}
 
+		repos = removeArchivedRepos(repos)
+
 		numRepo += len(repos)
 
 		for _, repo := range repos {
@@ -124,4 +126,16 @@ func (runner *TestRunner) PerformRepoChecks() data.OrgReports {
 	orgReport.NumOfRepos = numRepo
 
 	return orgReport
+}
+
+func removeArchivedRepos(repositories []*github.Repository) []*github.Repository {
+	var result []*github.Repository
+
+	for _, repo := range repositories {
+		if *repo.Archived != true {
+			result = append(result, repo)
+		}
+	}
+
+	return result
 }

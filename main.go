@@ -14,8 +14,7 @@ import (
 )
 
 var (
-	orgReport  = data.OrgReports{}
-	testRunner *testrunner.TestRunner
+	orgReport = data.OrgReports{}
 )
 
 func main() {
