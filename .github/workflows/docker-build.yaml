@@ -25,12 +25,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Install the cosign tool except on PR
-      # https://github.com/sigstore/cosign-installer
-      - name: Install cosign
-        if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@main
-
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
@@ -39,10 +33,6 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set application version
-        id: app_version
-        run: echo "::set-output name=prefix::$(date +'%Y-%m-%d').${{ github.run_number }}."
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
